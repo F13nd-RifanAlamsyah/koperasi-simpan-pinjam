@@ -31,9 +31,6 @@ if(isset($_POST["login"])){
     }
     $error=true;
 }
-
-
-
 ?>
 <!doctype html>
 <head>
