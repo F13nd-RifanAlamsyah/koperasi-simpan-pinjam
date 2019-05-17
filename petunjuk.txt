@@ -9,7 +9,6 @@ Akun Aplikasi
 Superadmin : 
 username:F13nd || pass:123
 =====owner======
-Rifan Alamsyah(1606020)
-Sinta Dianti(1606009)
-M Zulfa Akbar(1606085)
+Rifan Alamsyah
+F13nd
 
