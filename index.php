@@ -118,7 +118,12 @@ if($_SESSION["login"]>=0){
                     <li class="<?php if($page=="user"){echo "active";}?>">
                         <a href="index.php?page=user"><i class="menu-icon fa fa-user"></i> <?= $_SESSION["nama_user"] ?> </a>
                     </li>
+
                     <?php } ?>
+                    <li class="<?php if($page=="credit"){echo "active";}?>">
+                        <a href="index.php?page=credit"><i class="menu-icon fa fa-user-secret"></i> Credit </a>
+                    </li>
+                </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>

@@ -8,7 +8,4 @@ Petunjuk Instal Aplikasi Simpan Pinjam Koperasi:
 Akun Aplikasi
 Superadmin : 
 username:F13nd || pass:123
-=====owner======
-Rifan Alamsyah
-F13nd
 
