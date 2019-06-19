@@ -150,7 +150,7 @@ endforeach;
     <div class="col-md-12">
         <div class="card">
             <div class="card-header text-white bg-danger text-center    ">
-                Total Pinjaman yang Harus Dibayar: Rp <?= $o;?>,-
+                Total Pinjaman yang Harus Dibayar: Rp <?= $o*(100+$koperasi["bunga"])/100;?>,-
                 <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#pinjam_detail" aria-expanded="true" aria-controls="collapseOne">
                 Detail
                 </button>
@@ -163,7 +163,7 @@ endforeach;
                             <thead>
                                 <tr>
                                     <th class="serial">Tanggal pinjam</th>
-                                    <th>Jumlah Pinjam</th>
+                                    <th>Jumlah Pinjam+bunga(<?= $koperasi["bunga"];?>%)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,13 +171,13 @@ endforeach;
                                 foreach($pinjam as $row): ?>
                                 <tr>
                                     <td class="serial"><?= $row["tgl_pinjam"]?></td>
-                                    <td>Rp <?= $row["jml_pinjam"];?>,-</td>
+                                    <td>Rp <?= $row["jml_pinjam"]*(100+$koperasi["bunga"])/100;?>,-</td>
                                 </tr>
                                 <?php
                                 endforeach;?>
                                 <tr>
                                     <td>Jumlah Pinjam</td>
-                                    <td> Rp <?= $o;?>,-</td>
+                                    <td> Rp <?= $o*(100+$koperasi["bunga"])/100;?>,-</td>
                                 </tr>
                             </tbody>
                         </table>
