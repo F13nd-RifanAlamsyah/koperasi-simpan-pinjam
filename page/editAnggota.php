@@ -1,5 +1,11 @@
 <?php 
-
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}
 $id_anggota=$_GET["id_anggota"];
 //query masasiswa berdasarkan id
 $anggota2=query("SELECT * FROM anggota WHERE id_anggota=$id_anggota")[0];

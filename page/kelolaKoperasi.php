@@ -1,4 +1,17 @@
 <?php
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}else if($_SESSION["login"]==1){
+    echo "
+    <script>
+        document.location.href='index.php?page=dashboard';
+    </script>
+    ";
+}
 $koperasi2=query("SELECT * FROM koperasi")[0];
 
 if(isset($_POST["edit_toko"])){

@@ -7,8 +7,8 @@ if(!isset($_SESSION["masuk"])){
 require 'function/function.php';
 $koperasi=query("SELECT * FROM koperasi")[0];
 
-if($_SESSION["login"]>0){   
-    if($_SESSION["login"]>0){
+if($_SESSION["login"]>=0){   
+    if($_SESSION["login"]>=0){
         $page=isset($_GET["page"])?$_GET["page"]:false;
     }else{
         echo "halaman tidak tersedia";
@@ -84,6 +84,7 @@ if($_SESSION["login"]>0){
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <?php if($_SESSION["login"]>0){ ?>
                     <li class="<?php if($page=="dashboard"){echo "active";}?>">
                         <a href="index.php?page=dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
@@ -94,10 +95,12 @@ if($_SESSION["login"]>0){
                     <li class="menu-item-has-children dropdown <?php if($page=="simpan"||$page=="pinjam"||$page=="simpanan"){echo "active";}?>">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bars"></i>Menu</a>
                         <ul class="sub-menu children dropdown-menu">                           
-                            <li class=""><i class="fa  fa-university"></i><a href="index.php?page=simpan">Simpan</a></li>
+                            <li class=""><i class="fa fa-university"></i><a href="index.php?page=simpan">Simpan</a></li>
                             <li><i class="fa fa-money"></i><a href="index.php?page=pinjam">Pinjam</a></li>
                         </ul>
                     </li>
+                    <?php } ?>
+
                     <?php
                         if($_SESSION["login"]>1):
                     ?>
@@ -111,6 +114,11 @@ if($_SESSION["login"]>0){
                     <?php 
                         endif;
                     ?>
+                    <?php if($_SESSION["login"]==0){ ?>
+                    <li class="<?php if($page=="user"){echo "active";}?>">
+                        <a href="index.php?page=user"><i class="menu-icon fa fa-user"></i> <?= $_SESSION["nama_user"] ?> </a>
+                    </li>
+                    <?php } ?>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
@@ -145,11 +153,19 @@ if($_SESSION["login"]>0){
         <?php
             $file="page/$page.php";
             if($page==""){
+                if ($_SESSION["login"]==0) {
+                ?>
+                    <script>
+                        document.location.href='index.php?page=user';
+                    </script>
+                <?php
+                }else{
                 ?>
                     <script>
                         document.location.href='index.php?page=dashboard';
                     </script>
                 <?php
+                }
             }
             if(file_exists("$file")){
                 include_once($file);

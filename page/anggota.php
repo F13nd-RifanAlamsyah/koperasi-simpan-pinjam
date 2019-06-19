@@ -1,6 +1,14 @@
 <?php
 $anggota=query("SELECT * FROM anggota");
 
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}
+
 //cek tombol tambah data telah diklik
 if(isset($_POST["tambah_anggota"])){
     if(tambah($_POST)>0){
@@ -25,7 +33,7 @@ if(isset($_POST["tambah_anggota"])){
 <!-- table -->
 <div class="card">
     <div class="card-header">
-        <button  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tampilModalTambah">
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tampilModalTambah">
         tambah anggota
         </button>
     </div>
@@ -79,6 +87,7 @@ if(isset($_POST["tambah_anggota"])){
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <strong>Tambah Anggota Koperasi</strong>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,64 +96,75 @@ if(isset($_POST["tambah_anggota"])){
                 <div >
                     <!-- awal data -->
                     <div class="card">
-                        <div class="card-header">
-                            <strong>Tambah Anggota Koperasi</strong>
-                        </div>
                         <div class="card-body card-block">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                <div class="form-group">
-                                    <div class=""><label for="nik" class=" form-control-label">NIK</label></div>
-                                    <div class=""><input type="number" id="nik" name="nik" placeholder="masukan nik" class="form-control form-control-sm" ></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class=""><label for="nama_anggota" class=" form-control-label">Nama</label></div>
-                                    <div class=""><input type="text" id="nama_anggota" name="nama_anggota" placeholder="masukan nama" class="form-control form-control-sm" autocomplete="off"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class=""><label for="jk" class=" form-control-label">Jenis Kelamin</label></div>
-                                    <div class="">
-                                        <select name="jk" id="jk" class="form-control-sm form-control">
-                                            <option value="0">Pilih </option>
-                                            <option value="pria">Pria </option>
-                                            <option value="wanita">Wanita</option>
-                                        </select>
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <div class=""><label for="nik" class=" form-control-label">NIK</label></div>
+                                        <div class=""><input type="number" id="nik" name="nik" placeholder="masukan nik" class="form-control form-control-sm" ></div>
                                     </div>
-                                </div>
-                            
-                                <div class="form-group">
-                                    <div class=""><label for="tmp_lahir" class=" form-control-label">Tempat Lahir</label></div>
-                                    <div class=""><input type="text" id="tmp_lahir" name="tmp_lahir" placeholder="masukan tempat lahir" class="form-control form-control-sm" autocomplete="off"></div>
-                                </div>
+                                    <div class="form-group col-6">
+                                        <div class=""><label for="nama_anggota" class=" form-control-label">Nama</label></div>
+                                        <div class=""><input type="text" id="nama_anggota" name="nama_anggota" placeholder="masukan nama" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <div class=""><label for="tgl_lahir" class=" form-control-label">Tanggal Lahir</label></div>
-                                    <div class=""><input type="date" id="tgl_lahir" name="tgl_lahir" placeholder="Masukkan Tanggal Lahir" class="form-control form-control-sm"><small class="form-text text-muted">bulan-tanggal-tahun</small></div>
-                                </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="jk" class=" form-control-label">Jenis Kelamin</label></div>
+                                        <div class="">
+                                            <select name="jk" id="jk" class="form-control-sm form-control">
+                                                <option value="0">Pilih </option>
+                                                <option value="pria">Pria </option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="tmp_lahir" class=" form-control-label">Tempat Lahir</label></div>
+                                        <div class=""><input type="text" id="tmp_lahir" name="tmp_lahir" placeholder="masukan tempat lahir" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <div class=""><label for="no_telp" class=" form-control-label">No Telepon</label></div>
-                                    <div class=""><input type="text" id="no_telp" name="no_telp" placeholder="masukan no telepon" class="form-control form-control-sm" autocomplete="off"></div>
-                                </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="tgl_lahir" class=" form-control-label">Tanggal Lahir</label></div>
+                                        <div class=""><input type="date" id="tgl_lahir" name="tgl_lahir" placeholder="Masukkan Tanggal Lahir" class="form-control form-control-sm"><small class="form-text text-muted">bulan-tanggal-tahun</small></div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <div class=""><label for="pekerjaan" class=" form-control-label">Pekerjaan</label></div>
-                                    <div class=""><input type="text" id="pekerjaan" name="pekerjaan" placeholder="masukan pekerjaan anda" class="form-control form-control-sm" autocomplete="off"></div>
-                                </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="no_telp" class=" form-control-label">No Telepon</label></div>
+                                        <div class=""><input type="text" id="no_telp" name="no_telp" placeholder="masukan no telepon" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <div class=""><label for="penghasilan" class=" form-control-label">Penghasilan(Rp)</label></div>
-                                    <div class=""><input type="text" id="penghasilan" name="penghasilan" placeholder="masukan penghasilan anda(Rp)" class="form-control form-control-sm" autocomplete="off"></div>
-                                </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="pekerjaan" class=" form-control-label">Pekerjaan</label></div>
+                                        <div class=""><input type="text" id="pekerjaan" name="pekerjaan" placeholder="masukan pekerjaan anda" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <div class=""><label for="alamat" class=" form-control-label">Alamat</label></div>
-                                    <div class=""><textarea name="alamat" id="alamat" rows="9" placeholder="masukan alamat anda" class="form-control form-control-sm"></textarea></div>
-                                </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="penghasilan" class=" form-control-label">Penghasilan(Rp)</label></div>
+                                        <div class=""><input type="text" id="penghasilan" name="penghasilan" placeholder="masukan penghasilan anda(Rp)" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
 
-                                <div class="row form-group">
-                                    <div class="col col-md-3"><label for="gambar" class=" form-control-label">Masukan gambar</label></div>
-                                    <div class="col-12 col-md-9"><input type="file" id="gambar" name="gambar" class="form-control-file form-control-sm"></div>
+                                    <div class="form-group col-12">
+                                        <div class=""><label for="alamat" class=" form-control-label">Alamat</label></div>
+                                        <div class=""><textarea name="alamat" id="alamat" rows="3" placeholder="masukan alamat anda" class="form-control form-control-sm"></textarea></div>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="username" class=" form-control-label">Email</label></div>
+                                        <div class=""><input type="text" id="username" name="username" placeholder="masukan email" class="form-control form-control-sm" autocomplete="off"></div>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="password" class=" form-control-label">Password</label></div>
+                                        <div class=""><input type="password" id="password" name="password" placeholder="masukan password" class="form-control form-control-sm"></div>
+                                    </div>
+                                    <div class="form-group col-4">
+                                        <div class=""><label for="password2" class=" form-control-label">Konfirmasi Password</label></div>
+                                        <div class=""><input type="password" id="password2" name="password2" placeholder="konfirmasi password" class="form-control form-control-sm"></div>
+                                    </div>
+
+                                    <div class="row form-group col-12">
+                                        <div class="col col-md-3"><label for="gambar" class=" form-control-label">Masukan gambar</label></div>
+                                        <div class="col-12 col-md-9"><input type="file" id="gambar" name="gambar" class="form-control-file form-control-sm"></div>
+                                    </div>
                                 </div>
                                 
                                 <div class="card-footer">

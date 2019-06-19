@@ -1,4 +1,12 @@
 <?php
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}
+
 $pinjam=query("SELECT anggota.nama_anggota, pinjam.id_pinjam,pinjam.id_anggota,pinjam.jml_pinjam,pinjam.tgl_pinjam,pinjam.status,anggota.id_anggota
 FROM anggota,pinjam
 WHERE anggota.id_anggota=pinjam.id_anggota;");
@@ -172,17 +180,15 @@ $bunga=query("SELECT * FROM koperasi")[0];
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <strong>Tambah Pinjaman</strong>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div >
+                <div>
                     <!-- awal data -->
                     <div class="card">
-                        <div class="card-header">
-                            <strong>Tambah Pinjaman</strong>
-                        </div>
                         <div class="card-body card-block">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="form-group">

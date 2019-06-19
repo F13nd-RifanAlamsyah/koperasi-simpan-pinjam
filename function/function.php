@@ -24,6 +24,29 @@ function tambah($data){
     $pekerjaan=htmlspecialchars($data["pekerjaan"]);
     $penghasilan=htmlspecialchars($data["penghasilan"]);
     $alamat=htmlspecialchars($data["alamat"]);
+    $username=htmlspecialchars($data["username"]);
+    $password=htmlspecialchars($data["password"]);
+    $password2=htmlspecialchars($data["password2"]);
+
+    //cek apakah username telah tersedia atau tidak
+    $result=mysqli_query($conn, "SELECT username FROM admin WHERE username='$username'");
+    if(mysqli_fetch_assoc($result)){
+        echo "<script>
+                alert('username yang dipilih sudah terdaftar');
+            </script>
+        ";
+        return false;
+    }
+    //cek konfirmasi password
+    if($password!==$password2){
+    echo "<script>
+            alert('password tidak sesuai');
+        </script>";
+        return false;   
+    }
+
+    //enkripsi password 
+    $password= password_hash($password,PASSWORD_DEFAULT);
     
     //upload gambar
     $gambar =upload();
@@ -36,7 +59,64 @@ function tambah($data){
                 VALUES
                 ('','$nik','$nama_anggota','$gambar','$jk','$tmp_lahir','$tgl_lahir','$alamat','$no_telp','$pekerjaan','$penghasilan')
                 ";
+    $query2="INSERT INTO admin VALUES
+            ('','$nama_anggota','$username','$password','user','$gambar')
+            ";
     mysqli_query($conn, $query);
+    mysqli_query($conn,$query2);
+    return mysqli_affected_rows($conn);
+}
+
+function register($data){
+    global $conn;
+    $nik=htmlspecialchars($data["nik"]);
+    $nama_anggota=htmlspecialchars($data["nama_anggota"]);
+    $jk=htmlspecialchars($data["jk"]);
+    $tmp_lahir=htmlspecialchars($data["tmp_lahir"]);
+    $tgl_lahir=htmlspecialchars($data["tgl_lahir"]);
+    $no_telp=htmlspecialchars($data["no_telp"]);
+    $pekerjaan=htmlspecialchars($data["pekerjaan"]);
+    $penghasilan=htmlspecialchars($data["penghasilan"]);
+    $alamat=htmlspecialchars($data["alamat"]);
+    $username=htmlspecialchars($data["username"]);
+    $password=htmlspecialchars($data["password"]);
+    $password2=htmlspecialchars($data["password2"]);
+
+    //cek apakah username telah tersedia atau tidak
+    $result=mysqli_query($conn, "SELECT username FROM admin WHERE username='$username'");
+    if(mysqli_fetch_assoc($result)){
+        echo "<script>
+                alert('username yang dipilih sudah terdaftar');
+            </script>
+        ";
+        return false;
+    }
+    //cek konfirmasi password
+    if($password!==$password2){
+    echo "<script>
+            alert('password tidak sesuai');
+        </script>";
+        return false;   
+    }
+
+    //enkripsi password 
+    $password= password_hash($password,PASSWORD_DEFAULT);
+    //upload gambar
+    $gambar =upload();
+    if(!$gambar){
+        return false;
+    }
+
+    //query insert data
+    $query="INSERT INTO anggota
+            VALUES
+            ('','$nik','$nama_anggota','$gambar','$jk','$tmp_lahir','$tgl_lahir','$alamat','$no_telp','$pekerjaan','$penghasilan')
+            ";
+    $query2="INSERT INTO admin VALUES
+            ('','$nama_anggota','$username','$password','user','$gambar')
+            ";
+    mysqli_query($conn,$query);
+    mysqli_query($conn,$query2);
     return mysqli_affected_rows($conn);
 }
 

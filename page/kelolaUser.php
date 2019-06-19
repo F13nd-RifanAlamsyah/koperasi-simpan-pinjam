@@ -1,7 +1,20 @@
 <?php
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}else if($_SESSION["login"]==1){
+    echo "
+    <script>
+        document.location.href='index.php?page=dashboard';
+    </script>
+    ";
+}
 if($_SESSION["login"]>1){
     
-    $admin=query("SELECT * FROM admin");
+    $admin=query("SELECT * FROM admin WHERE level='superadmin' || level='admin'");
 
     if(isset($_POST["tambah_user"])){
         if(tambahUser($_POST)>0){
@@ -166,6 +179,7 @@ if($_SESSION["login"]>1){
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                 Tambah User Koperasi
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -174,9 +188,6 @@ if($_SESSION["login"]>1){
                 <div >
                     <!-- awal data -->
                     <div class="card">
-                        <div class="card-header">
-                            Tambah User Koperasi
-                        </div>
                         <div class="card-body card-block">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="form-group">

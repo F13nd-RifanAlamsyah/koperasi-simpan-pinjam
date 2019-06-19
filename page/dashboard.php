@@ -1,4 +1,11 @@
 <?php
+if($_SESSION["login"]==0){
+    echo "
+    <script>
+        document.location.href='index.php?page=user';
+    </script>
+    ";
+}
 // menghitung jumlah anggota koperasi
 $countAnggota=mysqli_query($conn, "SELECT * FROM anggota");
 $count=mysqli_num_rows($countAnggota);
